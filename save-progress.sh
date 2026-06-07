@@ -18,8 +18,18 @@ echo "🚀 Starting save sequence for $SLUG..."
 # Switch to main to branch off cleanly
 git checkout main 2>/dev/null || git checkout master 2>/dev/null
 
-# Create or switch to today's progress branch
-git checkout -b $PROGRESS_BRANCH 2>/dev/null || git checkout $PROGRESS_BRANCH
+# Attempt to create or switch to today's progress branch
+if ! git checkout -b $PROGRESS_BRANCH 2>/dev/null && ! git checkout $PROGRESS_BRANCH 2>/dev/null; then
+    echo "❌ FATAL ERROR: Could not switch to branch $PROGRESS_BRANCH. Aborting so we don't commit to main!"
+    exit 1
+fi
+
+# Verify we are actually on the progress branch before committing
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$CURRENT_BRANCH" != "$PROGRESS_BRANCH" ]; then
+    echo "❌ FATAL ERROR: Not on the progress branch. Aborting!"
+    exit 1
+fi
 
 # Stage and commit the raw code
 git add questions/ solutions/
