@@ -49,15 +49,15 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    const seen = {};
-    for (let i = 0;i<nums.length;i++) {
-        const num = nums[i];
-        const complement = target - num;
-        if (seen[complement] !== undefined) {
-            return [seen[complement], i];
+    const map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement), i];
         }
-        seen[num] = i;
+        map.set(nums[i], i);
     }
+    return [];
 };
 
 module.exports = { twoSum };
