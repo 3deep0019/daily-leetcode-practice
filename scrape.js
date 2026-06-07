@@ -10,12 +10,17 @@ if (!titleSlug) {
 
 const GRAPHQL_URL = 'https://leetcode.com/graphql';
 
+// UPDATED QUERY: Now includes difficulty and topicTags
 const query = `
   query getQuestionDetail($titleSlug: String!) {
     question(titleSlug: $titleSlug) {
       questionId
       title
       titleSlug
+      difficulty
+      topicTags {
+        name
+      }
       content
       exampleTestcases
       codeSnippets {
@@ -64,16 +69,14 @@ async function fetchProblem() {
             .replace(/\n{3,}/g, '\n\n') // Remove excessive newlines
             .trim();
 
-        // --- THE MAGIC: SMART TEST CASE PARSING ---
+        // Format topics into a simple array of strings
+        const topics = question.topicTags ? question.topicTags.map((tag) => tag.name) : [];
 
-        // 1. Figure out how many arguments the function takes by counting @param tags
+        // --- THE MAGIC: SMART TEST CASE PARSING ---
         const numParams = (starterCode.match(/@param/g) || []).length;
         const argsCount = numParams > 0 ? numParams : 1;
-
-        // 2. Extract expected outputs directly from the text description using Regex
         const outputStrings = [...cleanContent.matchAll(/Output:\s*(.*)/g)].map((m) => m[1].trim());
 
-        // 3. Group the raw inputs based on the number of arguments and parse them into real JS objects
         const rawTestCases = question.exampleTestcases.split('\n');
         const formattedTestCases = [];
 
@@ -81,7 +84,6 @@ async function fetchProblem() {
         for (let i = 0; i < rawTestCases.length; i += argsCount) {
             const currentInputs = rawTestCases.slice(i, i + argsCount);
 
-            // Try to safely parse the stringified arrays/numbers into real JS data types
             const parsedInputs = currentInputs.map((val) => {
                 try {
                     return JSON.parse(val);
@@ -95,7 +97,7 @@ async function fetchProblem() {
                 try {
                     parsedOutput = JSON.parse(outputStrings[outputIndex]);
                 } catch (e) {
-                    parsedOutput = outputStrings[outputIndex]; // Fallback to string if parsing fails
+                    parsedOutput = outputStrings[outputIndex];
                 }
             }
 
@@ -107,9 +109,12 @@ async function fetchProblem() {
         }
         // ----------------------------------------
 
+        // UPDATED JSON: Now includes difficulty and topics
         const questionJson = {
             id: question.titleSlug,
             title: question.title,
+            difficulty: question.difficulty,
+            topics: topics,
             functionName: functionName,
             description: cleanContent,
             starterCode: starterCode,
@@ -138,7 +143,19 @@ async function fetchProblem() {
                 .map((line) => ` * ${line}`)
                 .join('\n');
 
-            const solutionTemplate = `/**\n * Problem: ${question.title}\n * * Description:\n${commentDescription}\n */\n\n${starterCode}\n\nmodule.exports = { ${functionName} };\n`;
+            // UPDATED TEMPLATE: Added Difficulty and Topics to the top comment
+            const solutionTemplate = `/**
+ * Problem: ${question.title}
+ * Difficulty: ${question.difficulty}
+ * Topics: ${topics.join(', ')}
+ * * Description:
+${commentDescription}
+ */
+
+${starterCode}
+
+module.exports = { ${functionName} };
+`;
 
             fs.writeFileSync(solutionFilePath, solutionTemplate);
             console.log(`✅ Successfully generated starter solution: ${solutionFilePath}`);

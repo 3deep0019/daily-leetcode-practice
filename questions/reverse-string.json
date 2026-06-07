@@ -1,0 +1,52 @@
+{
+  "id": "reverse-string",
+  "title": "Reverse String",
+  "difficulty": "Easy",
+  "topics": [
+    "Two Pointers",
+    "String"
+  ],
+  "functionName": "reverseString",
+  "description": "Write a function that reverses a string. The input string is given as an array of characters s.\n\nYou must do this by modifying the input array in-place with O(1) extra memory.\n\n \nExample 1:\nInput: s = [\"h\",\"e\",\"l\",\"l\",\"o\"]\nOutput: [\"o\",\"l\",\"l\",\"e\",\"h\"]\nExample 2:\nInput: s = [\"H\",\"a\",\"n\",\"n\",\"a\",\"h\"]\nOutput: [\"h\",\"a\",\"n\",\"n\",\"a\",\"H\"]\n\n \nConstraints:\n\n\t1 <= s.length <= 105\n\ts[i] is a printable ascii character.",
+  "starterCode": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nvar reverseString = function(s) {\n    \n};",
+  "testCases": [
+    {
+      "inputs": [
+        [
+          "h",
+          "e",
+          "l",
+          "l",
+          "o"
+        ]
+      ],
+      "expected": [
+        "o",
+        "l",
+        "l",
+        "e",
+        "h"
+      ]
+    },
+    {
+      "inputs": [
+        [
+          "H",
+          "a",
+          "n",
+          "n",
+          "a",
+          "h"
+        ]
+      ],
+      "expected": [
+        "h",
+        "a",
+        "n",
+        "n",
+        "a",
+        "H"
+      ]
+    }
+  ]
+}
