@@ -10,11 +10,12 @@ if (!titleSlug) {
 
 const GRAPHQL_URL = 'https://leetcode.com/graphql';
 
-// UPDATED QUERY: Now includes difficulty and topicTags
+// UPDATED QUERY: Added questionFrontendId
 const query = `
   query getQuestionDetail($titleSlug: String!) {
     question(titleSlug: $titleSlug) {
       questionId
+      questionFrontendId
       title
       titleSlug
       difficulty
@@ -52,27 +53,21 @@ async function fetchProblem() {
             process.exit(1);
         }
 
-        // Extract JS starter code
         const jsSnippet = question.codeSnippets.find((s) => s.langSlug === 'javascript');
         const starterCode = jsSnippet ? jsSnippet.code : 'function solution() {\n\n}';
-
-        // Extract the primary function name from the starter code
         const funcMatch = starterCode.match(/var\s+(\w+)\s*=\s*function/);
         const functionName = funcMatch ? funcMatch[1] : 'solution';
 
-        // Clean up HTML tags from the description
         const cleanContent = question.content
-            .replace(/<[^>]+>/g, '') // Strip HTML tags
-            .replace(/&nbsp;/g, ' ') // Clean up HTML entities
+            .replace(/<[^>]+>/g, '')
+            .replace(/&nbsp;/g, ' ')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>')
-            .replace(/\n{3,}/g, '\n\n') // Remove excessive newlines
+            .replace(/\n{3,}/g, '\n\n')
             .trim();
 
-        // Format topics into a simple array of strings
         const topics = question.topicTags ? question.topicTags.map((tag) => tag.name) : [];
 
-        // --- THE MAGIC: SMART TEST CASE PARSING ---
         const numParams = (starterCode.match(/@param/g) || []).length;
         const argsCount = numParams > 0 ? numParams : 1;
         const outputStrings = [...cleanContent.matchAll(/Output:\s*(.*)/g)].map((m) => m[1].trim());
@@ -83,7 +78,6 @@ async function fetchProblem() {
         let outputIndex = 0;
         for (let i = 0; i < rawTestCases.length; i += argsCount) {
             const currentInputs = rawTestCases.slice(i, i + argsCount);
-
             const parsedInputs = currentInputs.map((val) => {
                 try {
                     return JSON.parse(val);
@@ -100,18 +94,14 @@ async function fetchProblem() {
                     parsedOutput = outputStrings[outputIndex];
                 }
             }
-
-            formattedTestCases.push({
-                inputs: parsedInputs,
-                expected: parsedOutput,
-            });
+            formattedTestCases.push({ inputs: parsedInputs, expected: parsedOutput });
             outputIndex++;
         }
-        // ----------------------------------------
 
-        // UPDATED JSON: Now includes difficulty and topics
+        // UPDATED JSON STRUCTURE: Added "number"
         const questionJson = {
             id: question.titleSlug,
+            number: parseInt(question.questionFrontendId, 10), // The actual LeetCode #
             title: question.title,
             difficulty: question.difficulty,
             topics: topics,
@@ -121,49 +111,28 @@ async function fetchProblem() {
             testCases: formattedTestCases,
         };
 
-        // Save Question JSON
         const questionsDir = path.join(__dirname, 'questions');
-        if (!fs.existsSync(questionsDir)) {
-            fs.mkdirSync(questionsDir);
-        }
+        if (!fs.existsSync(questionsDir)) fs.mkdirSync(questionsDir);
+
         const questionFilePath = path.join(questionsDir, `${question.titleSlug}.json`);
         fs.writeFileSync(questionFilePath, JSON.stringify(questionJson, null, 2));
         console.log(`✅ Successfully generated question JSON: ${questionFilePath}`);
 
-        // Generate Solution File
         const solutionsDir = path.join(__dirname, 'solutions');
-        if (!fs.existsSync(solutionsDir)) {
-            fs.mkdirSync(solutionsDir);
-        }
-        const solutionFilePath = path.join(solutionsDir, `${question.titleSlug}.js`);
+        if (!fs.existsSync(solutionsDir)) fs.mkdirSync(solutionsDir);
 
+        const solutionFilePath = path.join(solutionsDir, `${question.titleSlug}.js`);
         if (!fs.existsSync(solutionFilePath)) {
             const commentDescription = cleanContent
                 .split('\n')
                 .map((line) => ` * ${line}`)
                 .join('\n');
-
-            // UPDATED TEMPLATE: Added Difficulty and Topics to the top comment
-            const solutionTemplate = `/**
- * Problem: ${question.title}
- * Difficulty: ${question.difficulty}
- * Topics: ${topics.join(', ')}
- * * Description:
-${commentDescription}
- */
-
-${starterCode}
-
-module.exports = { ${functionName} };
-`;
-
+            const solutionTemplate = `/**\n * Problem: ${question.title}\n * Difficulty: ${question.difficulty}\n * Topics: ${topics.join(', ')}\n * * Description:\n${commentDescription}\n */\n\n${starterCode}\n\nmodule.exports = { ${functionName} };\n`;
             fs.writeFileSync(solutionFilePath, solutionTemplate);
             console.log(`✅ Successfully generated starter solution: ${solutionFilePath}`);
         } else {
-            console.log(`ℹ️  Solution file already exists, skipping creation to prevent overwrite: ${solutionFilePath}`);
+            console.log(`ℹ️  Solution file already exists, skipping creation.`);
         }
-
-        console.log(`\n🎉 All done! Write your code in 'solutions/${question.titleSlug}.js' then run 'node runner.js ${question.titleSlug}'`);
     } catch (error) {
         console.error('❌ Failed to scrape the problem:', error.message);
     }
