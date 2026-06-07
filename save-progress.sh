@@ -15,13 +15,13 @@ echo "🚀 Starting save sequence for $SLUG..."
 # ==========================================
 # PHASE 1: SAVE CODE TO PROGRESS BRANCH
 # ==========================================
-# Switch to the main branch first to branch off cleanly
+# Switch to main to branch off cleanly
 git checkout main 2>/dev/null || git checkout master 2>/dev/null
 
 # Create or switch to today's progress branch
 git checkout -b $PROGRESS_BRANCH 2>/dev/null || git checkout $PROGRESS_BRANCH
 
-# Stage and commit the raw code (dist/ is ignored by .gitignore)
+# Stage and commit the raw code
 git add questions/ solutions/
 git commit -m "feat: complete $SLUG for $TODAY"
 git push -u origin $PROGRESS_BRANCH
@@ -32,22 +32,41 @@ echo "✅ Code saved to branch: $PROGRESS_BRANCH"
 # PHASE 2: GENERATE THE HTML
 # ==========================================
 echo "⚙️ Building the HTML website..."
-# Run the builder without arguments since it does everything now
 node build-site.js 
 
 
 # ==========================================
-# PHASE 3: DEPLOYMENT BRANCH
+# PHASE 3: DEPLOYMENT (THE FIX)
 # ==========================================
-echo "🌐 Updating the deploy branch..."
+echo "🌐 Deploying strictly the built files..."
 
-git checkout deploy 2>/dev/null || git checkout -b deploy
+# 1. Get the remote repository URL
+REPO_URL=$(git remote get-url origin)
 
-# Copy EVERYTHING from dist (index.html AND the problems/ folder)
-cp -r dist/* ./
+# 2. Go inside the ignored dist/ folder
+cd dist
 
-# Add all the HTML files and commit
-git add index.html problems/
+# 3. Create a temporary, completely blank Git repo
+git init
+git checkout -b deploy
+
+# 4. Add ONLY the HTML files and commit
+git add .
 git commit -m "deploy: live website update for $TODAY"
-git push -u origin deploy
-echo "✅ Website updated on branch: deploy"
+
+# 5. Force push this tiny, clean repo over your GitHub 'deploy' branch
+git push -f $REPO_URL deploy
+
+# 6. Clean up the temporary git data and go back to the root folder
+rm -rf .git
+cd ..
+
+echo "✅ Website deployed cleanly! The 'deploy' branch now ONLY contains your website."
+
+
+# ==========================================
+# PHASE 4: CLEANUP
+# ==========================================
+# Return back to the main working branch
+git checkout main 2>/dev/null || git checkout master 2>/dev/null
+echo "🎉 All done! You are back on your main branch."
