@@ -64,15 +64,48 @@ async function fetchProblem() {
             .replace(/\n{3,}/g, '\n\n') // Remove excessive newlines
             .trim();
 
-        // Format raw test cases
+        // --- THE MAGIC: SMART TEST CASE PARSING ---
+
+        // 1. Figure out how many arguments the function takes by counting @param tags
+        const numParams = (starterCode.match(/@param/g) || []).length;
+        const argsCount = numParams > 0 ? numParams : 1;
+
+        // 2. Extract expected outputs directly from the text description using Regex
+        const outputStrings = [...cleanContent.matchAll(/Output:\s*(.*)/g)].map((m) => m[1].trim());
+
+        // 3. Group the raw inputs based on the number of arguments and parse them into real JS objects
         const rawTestCases = question.exampleTestcases.split('\n');
-        const formattedTestCases = [
-            {
-                note: 'Manually verify the inputs and expected outputs below.',
-                inputs: rawTestCases,
-                expected: 'FILL_ME_IN',
-            },
-        ];
+        const formattedTestCases = [];
+
+        let outputIndex = 0;
+        for (let i = 0; i < rawTestCases.length; i += argsCount) {
+            const currentInputs = rawTestCases.slice(i, i + argsCount);
+
+            // Try to safely parse the stringified arrays/numbers into real JS data types
+            const parsedInputs = currentInputs.map((val) => {
+                try {
+                    return JSON.parse(val);
+                } catch (e) {
+                    return val;
+                }
+            });
+
+            let parsedOutput = 'FILL_ME_IN';
+            if (outputStrings[outputIndex]) {
+                try {
+                    parsedOutput = JSON.parse(outputStrings[outputIndex]);
+                } catch (e) {
+                    parsedOutput = outputStrings[outputIndex]; // Fallback to string if parsing fails
+                }
+            }
+
+            formattedTestCases.push({
+                inputs: parsedInputs,
+                expected: parsedOutput,
+            });
+            outputIndex++;
+        }
+        // ----------------------------------------
 
         const questionJson = {
             id: question.titleSlug,
@@ -83,7 +116,7 @@ async function fetchProblem() {
             testCases: formattedTestCases,
         };
 
-        // --- 1. SAVE THE QUESTION JSON ---
+        // Save Question JSON
         const questionsDir = path.join(__dirname, 'questions');
         if (!fs.existsSync(questionsDir)) {
             fs.mkdirSync(questionsDir);
@@ -92,33 +125,20 @@ async function fetchProblem() {
         fs.writeFileSync(questionFilePath, JSON.stringify(questionJson, null, 2));
         console.log(`✅ Successfully generated question JSON: ${questionFilePath}`);
 
-        // --- 2. GENERATE THE STARTER SOLUTION FILE ---
+        // Generate Solution File
         const solutionsDir = path.join(__dirname, 'solutions');
         if (!fs.existsSync(solutionsDir)) {
             fs.mkdirSync(solutionsDir);
         }
         const solutionFilePath = path.join(solutionsDir, `${question.titleSlug}.js`);
 
-        // Prevent overwriting existing solutions
         if (!fs.existsSync(solutionFilePath)) {
-            // Format the description as a block comment
             const commentDescription = cleanContent
                 .split('\n')
                 .map((line) => ` * ${line}`)
                 .join('\n');
 
-            const solutionTemplate = `/**
- * Problem: ${question.title}
- * * Description:
-${commentDescription}
- * * Example Inputs:
- * ${rawTestCases.join('\n * ')}
- */
-
-${starterCode}
-
-module.exports = { ${functionName} };
-`;
+            const solutionTemplate = `/**\n * Problem: ${question.title}\n * * Description:\n${commentDescription}\n */\n\n${starterCode}\n\nmodule.exports = { ${functionName} };\n`;
 
             fs.writeFileSync(solutionFilePath, solutionTemplate);
             console.log(`✅ Successfully generated starter solution: ${solutionFilePath}`);
@@ -126,9 +146,7 @@ module.exports = { ${functionName} };
             console.log(`ℹ️  Solution file already exists, skipping creation to prevent overwrite: ${solutionFilePath}`);
         }
 
-        console.log(`\n⚠️  Next Steps:`);
-        console.log(`1. Open questions/${question.titleSlug}.json and format the 'testCases' arrays.`);
-        console.log(`2. Open solutions/${question.titleSlug}.js and start coding!`);
+        console.log(`\n🎉 All done! Write your code in 'solutions/${question.titleSlug}.js' then run 'node runner.js ${question.titleSlug}'`);
     } catch (error) {
         console.error('❌ Failed to scrape the problem:', error.message);
     }
