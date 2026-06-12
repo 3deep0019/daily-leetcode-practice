@@ -1,0 +1,30 @@
+{
+  "id": "find-the-index-of-the-first-occurrence-in-a-string",
+  "number": 28,
+  "title": "Find the Index of the First Occurrence in a String",
+  "difficulty": "Easy",
+  "topics": [
+    "Two Pointers",
+    "String",
+    "String Matching"
+  ],
+  "functionName": "strStr",
+  "description": "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.\n\n \nExample 1:\n\nInput: haystack = &quot;sadbutsad&quot;, needle = &quot;sad&quot;\nOutput: 0\nExplanation: &quot;sad&quot; occurs at index 0 and 6.\nThe first occurrence is at index 0, so we return 0.\n\nExample 2:\n\nInput: haystack = &quot;leetcode&quot;, needle = &quot;leeto&quot;\nOutput: -1\nExplanation: &quot;leeto&quot; did not occur in &quot;leetcode&quot;, so we return -1.\n\n \nConstraints:\n\n\t1 <= haystack.length, needle.length <= 104\n\thaystack and needle consist of only lowercase English characters.",
+  "starterCode": "/**\n * @param {string} haystack\n * @param {string} needle\n * @return {number}\n */\nvar strStr = function(haystack, needle) {\n    \n};",
+  "testCases": [
+    {
+      "inputs": [
+        "sadbutsad",
+        "sad"
+      ],
+      "expected": 0
+    },
+    {
+      "inputs": [
+        "leetcode",
+        "leeto"
+      ],
+      "expected": -1
+    }
+  ]
+}
