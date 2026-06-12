@@ -1,0 +1,36 @@
+{
+  "id": "longest-common-prefix",
+  "number": 14,
+  "title": "Longest Common Prefix",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "String",
+    "Trie"
+  ],
+  "functionName": "longestCommonPrefix",
+  "description": "Write a function to find the longest common prefix string amongst an array of strings.\n\nIf there is no common prefix, return an empty string &quot;&quot;.\n\n \nExample 1:\n\nInput: strs = [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]\nOutput: &quot;fl&quot;\n\nExample 2:\n\nInput: strs = [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]\nOutput: &quot;&quot;\nExplanation: There is no common prefix among the input strings.\n\n \nConstraints:\n\n\t1 <= strs.length <= 200\n\t0 <= strs[i].length <= 200\n\tstrs[i] consists of only lowercase English letters if it is non-empty.",
+  "starterCode": "/**\n * @param {string[]} strs\n * @return {string}\n */\nvar longestCommonPrefix = function(strs) {\n    \n};",
+  "testCases": [
+    {
+      "inputs": [
+        [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      ],
+      "expected": "fl"
+    },
+    {
+      "inputs": [
+        [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      ],
+      "expected": ""
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "valid-parentheses",
+  "number": 20,
+  "title": "Valid Parentheses",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Stack"
+  ],
+  "functionName": "isValid",
+  "description": "Given a string s containing just the characters &#39;(&#39;, &#39;)&#39;, &#39;{&#39;, &#39;}&#39;, &#39;[&#39; and &#39;]&#39;, determine if the input string is valid.\n\nAn input string is valid if:\n\n\tOpen brackets must be closed by the same type of brackets.\n\tOpen brackets must be closed in the correct order.\n\tEvery close bracket has a corresponding open bracket of the same type.\n\n \nExample 1:\n\nInput: s = &quot;()&quot;\n\nOutput: true\n\nExample 2:\n\nInput: s = &quot;()[]{}&quot;\n\nOutput: true\n\nExample 3:\n\nInput: s = &quot;(]&quot;\n\nOutput: false\n\nExample 4:\n\nInput: s = &quot;([])&quot;\n\nOutput: true\n\nExample 5:\n\nInput: s = &quot;([)]&quot;\n\nOutput: false\n\n \nConstraints:\n\n\t1 <= s.length <= 104\n\ts consists of parentheses only &#39;()[]{}&#39;.",
+  "starterCode": "/**\n * @param {string} s\n * @return {boolean}\n */\nvar isValid = function(s) {\n    \n};",
+  "testCases": [
+    {
+      "inputs": [
+        "()"
+      ],
+      "expected": true
+    },
+    {
+      "inputs": [
+        "()[]{}"
+      ],
+      "expected": true
+    },
+    {
+      "inputs": [
+        "(]"
+      ],
+      "expected": false
+    },
+    {
+      "inputs": [
+        "([])"
+      ],
+      "expected": true
+    },
+    {
+      "inputs": [
+        "([)]"
+      ],
+      "expected": false
+    }
+  ]
+}
