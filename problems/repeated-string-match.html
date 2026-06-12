@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repeated String Match - LeetCode JS</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent-blue: #58a6ff;
+      --tag-bg: #21262d;
+      --easy: #238636;
+      --medium: #d29922;
+      --hard: #da3633;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 15px 0;
+    }
+
+    .meta-tags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .badge.easy {
+      background-color: var(--easy);
+    }
+
+    .badge.medium {
+      background-color: var(--medium);
+    }
+
+    .badge.hard {
+      background-color: var(--hard);
+    }
+
+    .topic-tag {
+      background-color: var(--tag-bg);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      border: 1px solid #30363d;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      border-bottom: 1px solid var(--tag-bg);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+
+    .code-container {
+      background: #1e1e1e !important;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      margin-top: 20px;
+    }
+
+    pre[class*="language-"] {
+      margin: 0;
+      border-radius: 8px;
+      background: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to all solutions</a>
+    <h1>#686 - Repeated String Match</h1>
+    <div class="meta-tags">
+      <span class="badge medium">Medium</span>
+      <span style="color: var(--text-muted)">•</span>
+      <a href="https://leetcode.com/problems/repeated-string-match/" target="_blank">View on LeetCode</a>
+      <span class="topic-tag">String</span><span class="topic-tag">String Matching</span>
+    </div>
+    <h2>Problem Description</h2>
+    <div class="description">
+      Given two strings a and b, return the minimum number of times you should repeat string a so that string b is a substring of it. If it is impossible for b​​​​​​ to be a substring of a after repeating it, return -1.<br><br>Notice: string &quot;abc&quot; repeated 0 times is &quot;&quot;, repeated 1 time is &quot;abc&quot; and repeated 2 times is &quot;abcabc&quot;.<br><br> <br>Example 1:<br><br>Input: a = &quot;abcd&quot;, b = &quot;cdabcdab&quot;<br>Output: 3<br>Explanation: We return 3 because by repeating a three times &quot;abcdabcdabcd&quot;, b is a substring of it.<br><br>Example 2:<br><br>Input: a = &quot;a&quot;, b = &quot;aa&quot;<br>Output: 2<br><br> <br>Constraints:<br><br>	1 <= a.length, b.length <= 104<br>	a and b consist of lowercase English letters.
+    </div>
+    <h2>Solution</h2>
+    <div class="code-container">
+      <pre><code class="language-javascript">/**
+ * Problem: Repeated String Match
+ * Difficulty: Medium
+ * Topics: String, String Matching
+ * * Description:
+ * Given two strings a and b, return the minimum number of times you should repeat string a so that string b is a substring of it. If it is impossible for b​​​​​​ to be a substring of a after repeating it, return -1.
+ * 
+ * Notice: string &quot;abc&quot; repeated 0 times is &quot;&quot;, repeated 1 time is &quot;abc&quot; and repeated 2 times is &quot;abcabc&quot;.
+ * 
+ *  
+ * Example 1:
+ * 
+ * Input: a = &quot;abcd&quot;, b = &quot;cdabcdab&quot;
+ * Output: 3
+ * Explanation: We return 3 because by repeating a three times &quot;abcdabcdabcd&quot;, b is a substring of it.
+ * 
+ * Example 2:
+ * 
+ * Input: a = &quot;a&quot;, b = &quot;aa&quot;
+ * Output: 2
+ * 
+ *  
+ * Constraints:
+ * 
+ * 	1 &lt;= a.length, b.length &lt;= 104
+ * 	a and b consist of lowercase English letters.
+ */
+
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+var repeatedStringMatch = function(a, b) {
+    
+};
+
+module.exports = { repeatedStringMatch };
+</code></pre>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+</body>
+
+</html>

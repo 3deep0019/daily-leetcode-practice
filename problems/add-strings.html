@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Strings - LeetCode JS</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --text-main: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent-blue: #58a6ff;
+      --tag-bg: #21262d;
+      --easy: #238636;
+      --medium: #d29922;
+      --hard: #da3633;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 15px 0;
+    }
+
+    .meta-tags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .badge.easy {
+      background-color: var(--easy);
+    }
+
+    .badge.medium {
+      background-color: var(--medium);
+    }
+
+    .badge.hard {
+      background-color: var(--hard);
+    }
+
+    .topic-tag {
+      background-color: var(--tag-bg);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      border: 1px solid #30363d;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      border-bottom: 1px solid var(--tag-bg);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+
+    .code-container {
+      background: #1e1e1e !important;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      margin-top: 20px;
+    }
+
+    pre[class*="language-"] {
+      margin: 0;
+      border-radius: 8px;
+      background: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to all solutions</a>
+    <h1>#415 - Add Strings</h1>
+    <div class="meta-tags">
+      <span class="badge easy">Easy</span>
+      <span style="color: var(--text-muted)">•</span>
+      <a href="https://leetcode.com/problems/add-strings/" target="_blank">View on LeetCode</a>
+      <span class="topic-tag">Math</span><span class="topic-tag">String</span><span class="topic-tag">Simulation</span>
+    </div>
+    <h2>Problem Description</h2>
+    <div class="description">
+      Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.<br><br>You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.<br><br> <br>Example 1:<br><br>Input: num1 = &quot;11&quot;, num2 = &quot;123&quot;<br>Output: &quot;134&quot;<br><br>Example 2:<br><br>Input: num1 = &quot;456&quot;, num2 = &quot;77&quot;<br>Output: &quot;533&quot;<br><br>Example 3:<br><br>Input: num1 = &quot;0&quot;, num2 = &quot;0&quot;<br>Output: &quot;0&quot;<br><br> <br>Constraints:<br><br>	1 <= num1.length, num2.length <= 104<br>	num1 and num2 consist of only digits.<br>	num1 and num2 don&#39;t have any leading zeros except for the zero itself.
+    </div>
+    <h2>Solution</h2>
+    <div class="code-container">
+      <pre><code class="language-javascript">/**
+ * Problem: Add Strings
+ * * Description:
+ * Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+ * 
+ * You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+ * 
+ *  
+ * Example 1:
+ * 
+ * Input: num1 = &quot;11&quot;, num2 = &quot;123&quot;
+ * Output: &quot;134&quot;
+ * 
+ * Example 2:
+ * 
+ * Input: num1 = &quot;456&quot;, num2 = &quot;77&quot;
+ * Output: &quot;533&quot;
+ * 
+ * Example 3:
+ * 
+ * Input: num1 = &quot;0&quot;, num2 = &quot;0&quot;
+ * Output: &quot;0&quot;
+ * 
+ *  
+ * Constraints:
+ * 
+ * 	1 &lt;= num1.length, num2.length &lt;= 104
+ * 	num1 and num2 consist of only digits.
+ * 	num1 and num2 don&#39;t have any leading zeros except for the zero itself.
+ */
+
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var addStrings = function(num1, num2) {
+    
+};
+
+module.exports = { addStrings };
+</code></pre>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+</body>
+
+</html>

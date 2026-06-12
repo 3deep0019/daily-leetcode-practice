@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetCode JavaScript Solutions</title>
+  <style>
+    :root {
+      --bg-dark: #1a1e24;
+      --bg-card: #22272e;
+      --text-main: #cdd9e5;
+      --text-muted: #768390;
+      --tag-bg: #2d333b;
+      --easy: #238636;
+      --medium: #d29922;
+      --hard: #da3633;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-main);
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .filter-btn:hover {
+      background-color: var(--tag-bg);
+    }
+
+    .filter-btn.active {
+      border-color: var(--text-main);
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+      display: block;
+    }
+
+    .card:hover {
+      border-color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .badge.easy {
+      background-color: var(--easy);
+    }
+
+    .badge.medium {
+      background-color: var(--medium);
+    }
+
+    .badge.hard {
+      background-color: var(--hard);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>LeetCode JavaScript Solutions</h1>
+      <p class="subtitle">A collection of 13 elegant solutions to LeetCode problems.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" style="border-color: var(--easy); color: var(--easy)" data-filter="easy">Easy</button>
+      <button class="filter-btn" style="border-color: var(--medium); color: var(--medium)" data-filter="medium">Medium</button>
+      <button class="filter-btn" style="border-color: var(--hard); color: var(--hard)" data-filter="hard">Hard</button>
+    </div>
+
+    <h2 style="font-size: 1.2rem; border-bottom: 1px solid var(--tag-bg); padding-bottom: 10px; margin-bottom: 20px;">All Problems</h2>
+
+    <div class="grid">
+      
+        <a href="problems/two-sum.html" class="card">
+            <h3 class="card-title">Two Sum</h3>
+            <div class="card-meta">
+                <span>#1</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/add-two-numbers.html" class="card">
+            <h3 class="card-title">Add Two Numbers</h3>
+            <div class="card-meta">
+                <span>#2</span>
+                <span class="badge medium">Medium</span>
+            </div>
+        </a>
+    
+        <a href="problems/palindrome-number.html" class="card">
+            <h3 class="card-title">Palindrome Number</h3>
+            <div class="card-meta">
+                <span>#9</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/longest-common-prefix.html" class="card">
+            <h3 class="card-title">Longest Common Prefix</h3>
+            <div class="card-meta">
+                <span>#14</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/valid-parentheses.html" class="card">
+            <h3 class="card-title">Valid Parentheses</h3>
+            <div class="card-meta">
+                <span>#20</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/find-the-index-of-the-first-occurrence-in-a-string.html" class="card">
+            <h3 class="card-title">Find the Index of the First Occurrence in a String</h3>
+            <div class="card-meta">
+                <span>#28</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/reverse-string.html" class="card">
+            <h3 class="card-title">Reverse String</h3>
+            <div class="card-meta">
+                <span>#344</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/add-strings.html" class="card">
+            <h3 class="card-title">Add Strings</h3>
+            <div class="card-meta">
+                <span>#415</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/repeated-substring-pattern.html" class="card">
+            <h3 class="card-title">Repeated Substring Pattern</h3>
+            <div class="card-meta">
+                <span>#459</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/next-greater-element-i.html" class="card">
+            <h3 class="card-title">Next Greater Element I</h3>
+            <div class="card-meta">
+                <span>#496</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/repeated-string-match.html" class="card">
+            <h3 class="card-title">Repeated String Match</h3>
+            <div class="card-meta">
+                <span>#686</span>
+                <span class="badge medium">Medium</span>
+            </div>
+        </a>
+    
+        <a href="problems/running-sum-of-1d-array.html" class="card">
+            <h3 class="card-title">Running Sum of 1d Array</h3>
+            <div class="card-meta">
+                <span>#1480</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+        <a href="problems/smallest-missing-integer-greater-than-sequential-prefix-sum.html" class="card">
+            <h3 class="card-title">Smallest Missing Integer Greater Than Sequential Prefix Sum</h3>
+            <div class="card-meta">
+                <span>#2996</span>
+                <span class="badge easy">Easy</span>
+            </div>
+        </a>
+    
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // 1. Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+
+          // 2. Add active class to the clicked button
+          btn.classList.add('active');
+
+          // 3. Get the filter value (all, easy, medium, hard)
+          const filterValue = btn.getAttribute('data-filter');
+
+          // 4. Loop through cards and show/hide based on difficulty
+          cards.forEach(card => {
+            const badge = card.querySelector('.badge');
+            const difficulty = badge.textContent.trim().toLowerCase();
+
+            if (filterValue === 'all' || difficulty === filterValue) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
